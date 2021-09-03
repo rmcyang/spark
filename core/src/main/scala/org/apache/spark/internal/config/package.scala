@@ -2193,6 +2193,14 @@ package object config {
       // with small MB sized chunk of data.
       .createWithDefaultString("3m")
 
+  private[spark] val PUSH_BASED_SHUFFLE_MERGE_RESULT_MIN_SIZE_FOR_REDUCED_CACHE =
+    ConfigBuilder("spark.shuffle.push.mergeResult.minSizeForReducedCache")
+      .doc("If the size of the serialized MergeStatus array for a given shuffle gets larger " +
+        "than this threshold, we cache individual MergeStatus as needed instead of the entire " +
+        "MergeStatus array for this shuffle on the executor side in order to save memory.")
+      .bytesConf(ByteUnit.BYTE)
+      .createWithDefaultString("5m")
+
   private[spark] val JAR_IVY_REPO_PATH =
     ConfigBuilder("spark.jars.ivy")
       .doc("Path to specify the Ivy user directory, used for the local Ivy cache and " +
